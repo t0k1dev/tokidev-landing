@@ -11,17 +11,17 @@ const featuredProject = {
 };
 ---
 
-<section id="projects" class="w-full max-w-[1440px] mx-auto relative pt-[124px] pb-24">
-  <!-- Section Label positioned absolutely to match Figma's left: 86px -->
-  <div class="absolute top-[40px] left-[86px] flex items-center gap-[12px] overflow-hidden">
+<section id="projects" class="w-full max-w-[1440px] mx-auto relative pt-[140px] pb-32">
+  <!-- Section Label positioned absolutely to match Figma's 1444px vs 1527px (~83px diff) -->
+  <div class="absolute top-[57px] left-[86px] flex items-center gap-[12px]">
     <div class="bg-brand-orange/80 h-[2px] w-[32px]"></div>
     <span class="text-brand-orange/70 text-[16px] font-bold tracking-[1.92px] whitespace-nowrap">
       SELECTED PROJECTS
     </span>
   </div>
 
-  <!-- Project Card - Centered as in Figma (top gap of 83px from label approx) -->
-  <div class="w-full flex justify-center px-4 mt-[83px]">
+  <!-- Project Card - Centered as in Figma (top gap of exactly 83px from label top) -->
+  <div class="w-full flex justify-center px-4 mt-0">
     <ProjectCard {...featuredProject} />
   </div>
 </section>

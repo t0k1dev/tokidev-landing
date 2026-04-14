@@ -1,6 +1,4 @@
 ---
-import { Box, Code2, Database } from 'lucide-astro';
-
 interface Props {
   id: string;
   title: string;
@@ -11,14 +9,18 @@ interface Props {
 }
 
 const { id, title, subtitle, description, tech, color } = Astro.props;
+
+// Split subtitle for the 2-line layout if it contains "problem solving"
+const subtitleParts = subtitle.split('problem solving');
+const hasProblemSolving = subtitle.includes('problem solving');
 ---
 
-<div class="relative w-[1180px] h-[580px] rounded-[24px] border border-brand-border/10 overflow-hidden group">
+<div class="relative w-[1180px] h-[580px] rounded-[24px] border border-brand-border/10 group">
   <!-- Secondary Glass Background Layer (from Figma 6:935) -->
   <div class="absolute inset-x-[-1px] inset-y-[-1px] bg-gradient-to-br from-black/36 to-zinc-400/5 backdrop-blur-[15px] rounded-[32px] -z-10"></div>
   
   <!-- Primary Background -->
-  <div class="absolute inset-0 bg-brand-glass/60 backdrop-blur-[10px] -z-20"></div>
+  <div class="absolute inset-0 bg-brand-glass/60 backdrop-blur-[10px] rounded-[24px] -z-20"></div>
   
   <!-- Content Container: left: 89px, top: 123px -->
   <div class="absolute left-[89px] top-[123px] w-[600px] flex flex-col items-start z-10">
@@ -33,7 +35,9 @@ const { id, title, subtitle, description, tech, color } = Astro.props;
     </div>
 
     <h3 class="text-[40px] font-bold tracking-[-0.8px] text-brand-text/95 leading-[48px] mb-[20px]">
-      <span style={`color: ${color};`}>{title}</span>: {subtitle}
+      <span style={`color: ${color};`}>{title}</span>: {subtitleParts[0]}
+      {hasProblemSolving && <br />}
+      {hasProblemSolving && "problem solving"}
     </h3>
 
     <div class="text-brand-text/40 text-[14px] font-medium leading-[24px] mb-[24px] max-w-[480px]">
@@ -42,7 +46,7 @@ const { id, title, subtitle, description, tech, color } = Astro.props;
 
     <div class="flex gap-[8px] items-start">
       {tech.map((t) => (
-        <div class="bg-brand-orange/10 border border-brand-orange/15 px-[14px] py-[6px] rounded-[6px]">
+        <div class="bg-brand-orange/8 border border-brand-orange/15 px-[14px] py-[6px] rounded-[6px]">
           <span class="text-[11px] font-bold text-brand-orange/80 tracking-[0.44px] uppercase whitespace-nowrap">
             {t}
           </span>
@@ -51,29 +55,36 @@ const { id, title, subtitle, description, tech, color } = Astro.props;
     </div>
   </div>
 
-  <!-- Visual Mockup Area -->
-  <div class="absolute left-[659px] top-[49px] w-[480px] h-[480px] relative">
-      <!-- Glow behind mockup (imgCardGlow) -->
-      <div class="absolute inset-0 bg-brand-orange/30 blur-[100px] rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
+  <!-- Visual Mockup Area: Bar Chart (from Figma screenshot 6:896) -->
+  <div class="absolute left-[659px] top-[49px] w-[480px] h-[480px]">
+      <!-- Central Glow -->
+      <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] bg-brand-purple/30 blur-[80px] rounded-full opacity-60 group-hover:bg-brand-orange/30 transition-colors duration-1000"></div>
       
-      <!-- Mockup Card (imgProjectImageCard) -->
-      <div class="absolute left-[30px] top-[30px] w-[420px] h-[420px] bg-gradient-to-br from-[#1a1029] to-black/20 border border-white/10 rounded-2xl shadow-2xl relative overflow-hidden group-hover:scale-[1.03] transition-transform duration-700">
-          <div class="absolute inset-0 p-8 flex flex-col gap-4">
-              <div class="flex items-center gap-3">
-                  <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
-                  <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
-                  <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
-              </div>
-              <div class="w-full h-px bg-white/5"></div>
-              <div class="flex flex-col gap-2 opacity-40">
-                  <div class="w-[80%] h-3 bg-white/10 rounded"></div>
-                  <div class="w-[60%] h-3 bg-white/10 rounded"></div>
-                  <div class="w-[90%] h-3 bg-white/10 rounded"></div>
-              </div>
-              <div class="mt-auto flex justify-center pb-4">
-                   <Code2 size={48} class="text-brand-purple/50 animate-pulse" />
-              </div>
+      <!-- Mockup Card Wrapper -->
+      <div class="absolute left-[30px] top-[30px] w-[420px] h-[420px] bg-gradient-to-br from-[#1a1029] to-[#0f0a1a] border border-white/10 rounded-[28px] shadow-2xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-700">
+          
+          <!-- Inner Glow -->
+          <div class="absolute left-[40%] top-[40%] w-[200px] h-[200px] bg-brand-orange/15 blur-[60px] rounded-full"></div>
+
+          <!-- Decorative Lines/Grid -->
+          <div class="absolute inset-0 p-10 flex flex-col justify-between opacity-10">
+              {[1,2,3,4,5,6].map(() => (
+                  <div class="w-full h-px bg-white/40"></div>
+              ))}
           </div>
+
+          <!-- Bar Chart Visual -->
+          <div class="absolute inset-0 flex items-end justify-center gap-4 px-12 pb-16">
+              {[35, 65, 45, 90, 55, 75, 40, 50].map((h, i) => (
+                  <div 
+                    class="w-full bg-gradient-to-t from-brand-orange/40 to-brand-orange/10 rounded-t-sm transition-all duration-1000 group-hover:from-brand-purple/40 group-hover:to-brand-purple/10" 
+                    style={`height: ${h}px; transition-delay: ${i * 50}ms;`}
+                  ></div>
+              ))}
+          </div>
+
+          <!-- Overlay Shine -->
+          <div class="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none"></div>
       </div>
   </div>
 </div>
