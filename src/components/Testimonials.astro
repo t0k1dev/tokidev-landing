@@ -48,7 +48,7 @@ const testimonials = [
       {testimonials.map((test, index) => (
         <div class="relative w-full p-6 rounded-[32px] border border-brand-border/10 overflow-hidden transition-all duration-700 hover:scale-[1.01]">
           <!-- Glass Background -->
-          <div class="absolute inset-0 bg-gradient-to-br from-black/35 to-white/5 backdrop-blur-xl -z-10"></div>
+          <div class="absolute inset-0 bg-linear-to-br from-black/35 to-white/5 backdrop-blur-xl -z-10"></div>
           
           <span class="text-[56px] font-bold leading-none opacity-30 select-none" style={`color: ${test.color};`}>“</span>
           
@@ -57,7 +57,7 @@ const testimonials = [
           </p>
 
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-br flex items-center justify-center text-[14px] font-bold" 
+            <div class="w-10 h-10 rounded-full bg-linear-to-br flex items-center justify-center text-[14px] font-bold" 
                  style={`background: linear-gradient(135deg, ${test.color}cc, #1a1029); border-color: ${test.color}44;`}>
               {test.initials}
             </div>
@@ -68,7 +68,7 @@ const testimonials = [
           </div>
         </div>
         // Add divider if not last
-        // index < testimonials.length - 1 && <div class="w-[620px] h-[1px] bg-brand-text/5 self-center"></div>
+        // index < testimonials.length - 1 && <div class="w-[620px] h-px bg-brand-text/5 self-center"></div>
       ))}
     </div>
   </div>
