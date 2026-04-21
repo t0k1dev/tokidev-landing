@@ -37,8 +37,8 @@ const socialLinks = [
 
     <!-- Navigation (Mobile focused) -->
     <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 md:hidden">
-      {['About', 'Experience', 'Projects', 'Community'].map(link => (
-        <a href={`#${link.toLowerCase()}`} class="text-[13px] font-medium text-brand-text/40 hover:text-brand-orange transition-colors">
+      {['About', 'Experience', 'Projects', 'Community', 'Blog'].map(link => (
+        <a href={link === 'Blog' ? '/blog' : `/#${link.toLowerCase()}`} class="text-[13px] font-medium text-brand-text/40 hover:text-brand-orange transition-colors">
           {link}
         </a>
       ))}

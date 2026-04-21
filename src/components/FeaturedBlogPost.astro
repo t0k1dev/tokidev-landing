@@ -1,0 +1,77 @@
+---
+import { ArrowRight } from "lucide-astro";
+
+interface Props {
+  title: string;
+  excerpt: string;
+  date: string;
+  author: string;
+  readTime: string;
+  category: string;
+  url: string;
+}
+
+const { title, excerpt, date, author, readTime, category, url } = Astro.props;
+---
+
+<div class="flex flex-col gap-5 w-[92%] max-w-[1120px] mx-auto mt-14">
+  <!-- Eyebrow -->
+  <div class="flex items-center gap-2">
+    <div class="w-6 h-px bg-brand-orange"></div>
+    <span class="text-brand-orange text-[11px] font-semibold tracking-[1.54px] uppercase">
+      Featured Post  ★
+    </span>
+  </div>
+
+  <!-- Featured Card -->
+  <div class="group relative w-full rounded-[32px] border border-white/10 overflow-hidden flex flex-col-reverse lg:flex-row items-stretch bg-gradient-to-b from-[#1a1029]/65 to-[#0d0d23]/85 transition-all duration-500 hover:border-brand-orange/30">
+    
+    <!-- Content Side -->
+    <div class="flex flex-col justify-center px-8 py-10 lg:px-11 lg:py-12 w-full lg:w-7/12 gap-5 z-10">
+      
+      <!-- Top meta -->
+      <div class="flex flex-wrap items-center gap-2.5">
+        <div class="px-2.5 py-1.5 rounded-full bg-brand-orange/15 border border-brand-orange/30">
+          <span class="text-brand-orange text-[10.5px] font-semibold tracking-[0.84px] uppercase whitespace-nowrap">
+            {category}
+          </span>
+        </div>
+        <div class="px-2.5 py-1.5 rounded-full bg-white/5 border border-white/10">
+          <span class="text-brand-text/80 text-[10.5px] font-semibold tracking-[0.84px] uppercase whitespace-nowrap">
+            {readTime}
+          </span>
+        </div>
+      </div>
+
+      <!-- Title & Excerpt -->
+      <div class="flex flex-col gap-4 mt-1">
+        <h2 class="text-[32px] md:text-[40px] font-bold text-white tracking-[-0.8px] leading-[1.1]">
+          {title}
+        </h2>
+        <p class="text-brand-text/80 text-[15px] font-normal leading-[1.6] max-w-[550px]">
+          {excerpt}
+        </p>
+      </div>
+
+      <!-- Bottom meta & CTA -->
+      <div class="flex flex-col sm:flex-row sm:items-center gap-6 mt-2">
+        <div class="flex items-center gap-3">
+          <span class="text-[12.5px] font-medium text-brand-text/50">{date}</span>
+          <span class="w-[3px] h-[3px] rounded-full bg-brand-text/30"></span>
+          <span class="text-[12.5px] font-medium text-brand-text/50">By {author}</span>
+        </div>
+
+        <a href={url} class="sm:ml-auto w-fit flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-[#ef6c4a] to-[#f4845c] shadow-[0_10px_40px_rgba(239,108,74,0.25)] hover:shadow-[0_10px_50px_rgba(239,108,74,0.4)] transition-all hover:-translate-y-0.5">
+          <span class="text-[14px] font-semibold text-white">Read article</span>
+          <ArrowRight size={16} class="text-white" />
+        </a>
+      </div>
+    </div>
+
+    <!-- Visual Side (Abstract Gradient Representation) -->
+    <div class="w-full lg:w-5/12 h-[280px] lg:h-auto overflow-hidden relative bg-gradient-to-r from-[#140b20] to-[#0d0d23]">
+      <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[350px] md:w-[450px] h-[350px] md:h-[450px] bg-brand-orange/40 rounded-full blur-[100px] group-hover:scale-110 transition-transform duration-700 ease-out"></div>
+      <div class="absolute left-10 top-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-brand-yellow/30 rounded-full blur-[80px]"></div>
+    </div>
+  </div>
+</div>

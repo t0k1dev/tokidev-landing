@@ -13,7 +13,7 @@ import { ArrowRight, Menu, X } from 'lucide-astro';
   <!-- Desktop Links -->
   <div class="hidden lg:flex items-center gap-1">
     {['About', 'Experience', 'Projects', 'Community', 'Blog'].map(link => (
-      <a href={`#${link.toLowerCase()}`} class="px-4 py-1.5 text-[13px] font-medium text-brand-text/50 hover:text-brand-text transition-colors rounded-lg">
+      <a href={link === 'Blog' ? '/blog' : `/#${link.toLowerCase()}`} class="px-4 py-1.5 text-[13px] font-medium text-brand-text/50 hover:text-brand-text transition-colors rounded-lg">
         {link}
       </a>
     ))}
@@ -38,7 +38,7 @@ import { ArrowRight, Menu, X } from 'lucide-astro';
 <div id="mobile-menu" class="fixed inset-0 bg-brand-bg/95 backdrop-blur-2xl z-[45] hidden flex flex-col items-center justify-center gap-8 lg:hidden">
   <div class="flex flex-col items-center gap-6">
     {['About', 'Experience', 'Projects', 'Community', 'Blog'].map(link => (
-      <a href={`#${link.toLowerCase()}`} class="mobile-link text-[24px] font-bold text-brand-text/60 hover:text-brand-orange transition-colors">
+      <a href={link === 'Blog' ? '/blog' : `/#${link.toLowerCase()}`} class="mobile-link text-[24px] font-bold text-brand-text/60 hover:text-brand-orange transition-colors">
         {link}
       </a>
     ))}
