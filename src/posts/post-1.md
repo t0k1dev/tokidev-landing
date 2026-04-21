@@ -1,5 +1,5 @@
 ---
-title: 'Designing solveOS: a distributed problem-solving runtime'
+title: "Designing solveOS: a distributed problem-solving runtime"
 excerpt: "How we built a coordination layer for ephemeral workers that scales horizontally without the operational overhead of Kubernetes — and the lessons we learned tearing down the first three prototypes."
 date: "April 10, 2026"
 readTime: "12 MIN READ"
@@ -22,13 +22,13 @@ Let's get this out of the way early. K8s is great at a specific job: keeping lon
   <li>Every layer of abstraction cost us latency we didn't have</li>
 </ul>
 
-<div class="bg-[rgba(245,166,35,0.08)] border border-[rgba(245,166,35,0.25)] border-solid flex gap-4 md:gap-5 items-start md:items-center px-5 py-5 md:px-[28px] md:py-[24px] rounded-[16px] w-full max-w-[720px] mb-8 mt-8 flex-col sm:flex-row">
-  <div class="bg-[rgba(245,166,35,0.25)] shrink-0 flex items-center justify-center rounded-full w-9 h-9">
-    <p class="font-bold text-[#f5a623] text-[18px] m-0">!</p>
+<div class="bg-brand-orange/10 border border-brand-orange/25 border-solid flex gap-4 md:gap-5 items-start md:items-center px-4 py-4 md:px-5 md:py-5 rounded-[16px] w-full max-w-[720px] my-4 flex-col sm:flex-row">
+  <div class="bg-brand-orange/20 shrink-0 flex items-center justify-center rounded-full w-9 h-9">
+    <span class="font-bold text-brand-orange text-[18px] leading-none mt-0.5">!</span>
   </div>
-  <div class="flex flex-col gap-1 items-start text-[14px] md:text-[15px]">
+  <div class="flex flex-col items-start text-[14px] md:text-[15px]">
     <p class="font-semibold text-white m-0">Heads up</p>
-    <p class="font-normal leading-[1.6] text-[#c6cad0] m-0 md:text-[14.5px]">We considered and rejected Nomad, Temporal, and Argo Workflows before committing to build from scratch. All three are excellent; none fit.</p>
+    <p class="font-normal leading-[1.6] text-brand-text/70 m-0 md:text-[14.5px]">We considered and rejected Nomad, Temporal, and Argo Workflows before committing to build from scratch. All three are excellent; none fit.</p>
   </div>
 </div>
 

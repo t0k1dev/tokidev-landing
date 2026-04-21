@@ -12,11 +12,15 @@ import { ArrowRight, Menu, X } from 'lucide-astro';
 
   <!-- Desktop Links -->
   <div class="hidden lg:flex items-center gap-1">
-    {['About', 'Experience', 'Projects', 'Community', 'Blog'].map(link => (
-      <a href={link === 'Blog' ? '/blog' : `/#${link.toLowerCase()}`} class="px-4 py-1.5 text-[13px] font-medium text-brand-text/50 hover:text-brand-text transition-colors rounded-lg">
-        {link}
-      </a>
-    ))}
+    {['About', 'Experience', 'Projects', 'Community', 'Blog'].map(link => {
+      const href = link === 'Blog' ? '/blog' : `/#${link.toLowerCase()}`;
+      return (
+        <a href={href} class="nav-link relative flex items-center gap-2 px-4 py-1.5 text-[13px] font-medium text-brand-text/50 hover:text-white transition-colors rounded-lg" data-target={link.toLowerCase()}>
+          <span class="nav-dot w-1.5 h-1.5 rounded-full bg-brand-orange hidden"></span>
+          <span class="nav-text">{link}</span>
+        </a>
+      );
+    })}
   </div>
 
   <!-- Desktop CTA -->
@@ -37,11 +41,15 @@ import { ArrowRight, Menu, X } from 'lucide-astro';
 <!-- Mobile Overlay (Visible until LG) -->
 <div id="mobile-menu" class="fixed inset-0 bg-brand-bg/95 backdrop-blur-2xl z-[45] hidden flex flex-col items-center justify-center gap-8 lg:hidden">
   <div class="flex flex-col items-center gap-6">
-    {['About', 'Experience', 'Projects', 'Community', 'Blog'].map(link => (
-      <a href={link === 'Blog' ? '/blog' : `/#${link.toLowerCase()}`} class="mobile-link text-[24px] font-bold text-brand-text/60 hover:text-brand-orange transition-colors">
-        {link}
-      </a>
-    ))}
+    {['About', 'Experience', 'Projects', 'Community', 'Blog'].map(link => {
+      const href = link === 'Blog' ? '/blog' : `/#${link.toLowerCase()}`;
+      return (
+        <a href={href} class="mobile-nav-link relative flex items-center gap-2.5 text-[24px] font-bold text-brand-text/60 hover:text-white transition-colors" data-target={link.toLowerCase()}>
+          <span class="nav-dot w-2 h-2 rounded-full bg-brand-orange hidden"></span>
+          <span class="nav-text">{link}</span>
+        </a>
+      );
+    })}
     <a href="#contact" class="mobile-link mt-4 flex items-center gap-2 px-8 py-4 bg-linear-to-r from-brand-orange to-brand-yellow rounded-full text-[16px] font-bold text-white">
       Let's talk
       <ArrowRight size={18} />
@@ -54,7 +62,9 @@ import { ArrowRight, Menu, X } from 'lucide-astro';
   const mobileMenu = document.getElementById('mobile-menu');
   const menuIcon = document.getElementById('menu-icon');
   const closeIcon = document.getElementById('close-icon');
-  const mobileLinks = document.querySelectorAll('.mobile-link');
+  const mobileLinks = document.querySelectorAll('.mobile-link, .mobile-nav-link');
+  
+  const allNavLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
 
   function toggleMenu() {
     mobileMenu?.classList.toggle('hidden');
@@ -72,4 +82,59 @@ import { ArrowRight, Menu, X } from 'lucide-astro';
       }
     });
   });
+
+  // --- Active State Logic ---
+  function setActiveLink(targetId: string) {
+    allNavLinks.forEach(link => {
+      const isMobile = link.classList.contains('mobile-nav-link');
+      const dot = link.querySelector('.nav-dot');
+      
+      // Reset
+      link.classList.remove('text-white');
+      if (isMobile) {
+        link.classList.add('text-brand-text/60');
+      } else {
+        link.classList.add('text-brand-text/50');
+      }
+      if (dot) dot.classList.add('hidden');
+
+      // Set Active
+      if (link.getAttribute('data-target') === targetId) {
+        link.classList.remove('text-brand-text/50', 'text-brand-text/60');
+        link.classList.add('text-white');
+        if (dot) dot.classList.remove('hidden');
+      }
+    });
+  }
+
+  // Determine context
+  const pathname = window.location.pathname;
+  
+  if (pathname.includes('/blog')) {
+    // If we are on the blog, statically set blog as active
+    setActiveLink('blog');
+  } else {
+    // We are on the landing page, track scroll positions for sections
+    const sections = document.querySelectorAll('section[id]');
+    
+    // Fallback if no sections map (defaults to none active)
+    const observer = new IntersectionObserver((entries) => {
+      let activeSet = false;
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveLink(entry.target.id);
+          activeSet = true;
+        }
+      });
+      // If we scroll to the very top, maybe set 'about' or clear
+      if (window.scrollY < 100) {
+        setActiveLink('about'); // or whichever is top
+      }
+    }, {
+      rootMargin: '-20% 0px -60% 0px', // Triggers when section passes mid-upper screen
+      threshold: 0
+    });
+
+    sections.forEach(sec => observer.observe(sec));
+  }
 </script>

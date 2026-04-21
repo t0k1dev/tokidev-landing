@@ -14,7 +14,7 @@ interface Props {
 const { title, excerpt, date, readTime, category, url, color = "#ef6c4a" } = Astro.props;
 ---
 
-<a href={url} class="group w-full max-w-[357px] mx-auto h-auto min-h-[460px] rounded-[28px] border border-white/[0.08] flex flex-col overflow-hidden bg-gradient-to-b from-[#1a1029]/85 to-[#0d0d23]/95 transition-all duration-500 hover:-translate-y-1 hover:border-brand-orange/20 hover:shadow-2xl hover:shadow-brand-orange/5">
+<a href={url} data-category={category} class="group w-full max-w-[357px] mx-auto h-auto min-h-[460px] rounded-[28px] border border-white/[0.08] flex flex-col overflow-hidden bg-gradient-to-b from-[#1a1029]/85 to-[#0d0d23]/95 transition-all duration-500 hover:-translate-y-1 hover:border-brand-orange/20 hover:shadow-2xl hover:shadow-brand-orange/5 blog-card-element">
   
   <!-- Thumb Area (Visual Gradient Spheres) -->
   <div class="w-full h-[180px] bg-[#140b20] relative overflow-hidden flex-shrink-0">
